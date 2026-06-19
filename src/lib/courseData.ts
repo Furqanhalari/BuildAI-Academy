@@ -306,21 +306,23 @@ export const LEVELS: CourseLevel[] = [
         id: 'node-3-2',
         levelId: 'level-3',
         order: 2,
-        title: 'Telegram Bots',
-        subtitle: 'Deploy on a real messaging platform',
+        title: 'Web-Based Chatbots',
+        subtitle: 'Build AI chatbots and deploy them online',
         preClassBrief: [
-          'How to create a Telegram bot with BotFather',
-          'How the python-telegram-bot library works',
-          'Handling commands and messages from real users',
+          'How web-based chatbots work',
+          'Creating a chatbot interface using Streamlit',
+          'Connecting AI models to a web application',
+          'Managing user conversations and chatbot responses',
+          'Deploying a chatbot so anyone can access it online',
         ],
-        classContent: 'We will build and deploy a live Telegram bot together that responds to commands and messages.',
-        taskTitle: 'Your First Telegram Bot',
+        classContent: 'We will build and deploy a live AI-powered chatbot website together that can answer user questions through a professional web interface. Students will receive a public link that they can share with friends, family, and future clients as part of their portfolio.',
+        taskTitle: 'AI Study Assistant',
         taskDescription: `
         Task 1:
-        Create a Telegram bot that: (1) responds to /start with a welcome message, (2) responds to /joke with a random joke from an API, (3) echoes back any text the user sends. Share the bot username.
+        Create a simple web-based chatbot that helps students understand concepts. Build a chatbot interface using Streamlit. User enters a question, AI generates a response, and display conversation history during the session. Example questions: What is photosynthesis? Explain Newton's First Law. What is a Python variable? Submit: Screenshot of chatbot and public web app link.
 
         Task 2 (Challenge):
-        Extend your Telegram bot with an FAQ system. Add a /faq command that displays a list of common questions. When the user picks a question (by number or keyword), the bot replies with a pre-written custom answer. Add at least 5 FAQ entries covering topics relevant to your bot\'s theme.
+        Upgrade the chatbot into a subject-specific tutor. Add subject selection (Math, Science, English) where responses adapt based on selected subject. Add a "Difficulty Level" option (Beginner, Intermediate, Advanced). Example: Question "What is gravity?" - Math Mode focuses on formulas, Science Mode focuses on physics concepts. Submit: Screenshot, public web app link, and short explanation of how the personalization works.
         `,
         taskXp: 50,
         isBossTask: false,
@@ -330,20 +332,21 @@ export const LEVELS: CourseLevel[] = [
         levelId: 'level-3',
         order: 3,
         title: 'Intelligent Bots with LLM',
-        subtitle: 'Give your bot an AI brain',
+        subtitle: 'Connect Streamlit chatbots to Gemini AI',
         preClassBrief: [
-          'How to connect your Telegram bot to the Gemini API',
-          'Managing conversation history so the bot remembers context',
+          'How to connect a web-based chatbot to the Gemini API',
+          'Managing conversation history so the chatbot remembers context',
           'Rate limiting and handling API errors gracefully',
+          'Using system prompts to customize chatbot behavior',
         ],
-        classContent: 'We will upgrade our Telegram bot to use Gemini as its brain — making it able to answer any question intelligently.',
-        taskTitle: 'AI Tutor Bot',
+        classContent: 'We will upgrade our chatbot website to use Gemini as its brain — making it able to answer questions intelligently, maintain context, and provide personalized assistance through a professional web interface.',
+        taskTitle: 'AI Tutor Web App',
         taskDescription: `
         Task 1:
-        Upgrade your Telegram bot to be an "AI Tutor Bot" — it connects to Gemini, remembers the last 5 messages of conversation, and can explain any concept in simple terms.
+        Upgrade your chatbot website into an "AI Tutor" that connects to Gemini, remembers the last 5 messages of conversation, and can explain any concept in simple terms. The chatbot should provide helpful educational responses through your web interface.
 
         Task 2 (Challenge):
-        Add a subject selection feature to the AI Tutor Bot. When the user starts a session, ask them to choose a subject: Math, Science, or English. Based on their choice, customize the system prompt sent to Gemini so the bot responds in a style appropriate to that subject (e.g. step-by-step for Math, experiment-based for Science, grammar-focused for English). Allow the user to switch subjects at any time using a /subject command.
+        Add a subject selection feature to the AI Tutor Web App. When a user starts a session, allow them to choose a subject: Math, Science, or English. Based on their choice, customize the system prompt sent to Gemini so the chatbot responds in a style appropriate to that subject (e.g. step-by-step for Math, experiment-based for Science, grammar-focused for English). Add a button or dropdown menu that allows users to switch subjects at any time without restarting the application.
         `,
         taskXp: 50,
         isBossTask: false,
@@ -431,20 +434,21 @@ export const LEVELS: CourseLevel[] = [
         levelId: 'level-4',
         order: 2,
         title: 'Workflow Automation',
-        subtitle: 'n8n and simple automation logic',
+        subtitle: 'Connect apps without coding using n8n',
         preClassBrief: [
           'What n8n is and why it\'s a superpower for builders',
           'Connecting apps without writing much code',
           'Real automation examples: auto-reply, data routing, notifications',
+          'Working with forms, Google Sheets, and email automation',
         ],
-        classContent: 'We will build a working n8n workflow together that triggers on a form submission and sends a Telegram notification.',
+        classContent: 'We will build a working n8n workflow together that triggers when a form is submitted, stores the information in Google Sheets, and sends an automated email notification.',
         taskTitle: 'News Summarizer Bot',
         taskDescription: `
         Task 1:
-        Build an automation that: fetches today\'s top tech headlines from an RSS feed or API, sends them through Gemini to get a 3-sentence summary, and posts the summary to your Telegram bot every morning.
+        Create an n8n workflow that fetches the latest news from a public news source or RSS feed, generates a short AI summary, and saves the summary to a Google Sheet.
 
         Task 2 (Challenge):
-        Extend the automation to also deliver the daily news summary by email. Add an email node to your n8n workflow (using Gmail or SMTP) so that the same summary gets sent both to your Telegram bot and to a specified email address. Test both delivery channels and screenshot the results.
+        Extend your workflow so that after generating the news summary, it automatically sends the summary to an email address. Add categories such as Technology, Sports, or Business and allow the workflow to process only the selected category.
         `,
         taskXp: 50,
         isBossTask: false,

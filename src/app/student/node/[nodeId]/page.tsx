@@ -17,8 +17,10 @@ export default function NodeDetailPage({ params }: { params: Promise<{ nodeId: s
   const level = node ? getLevel(node.levelId) : null
 
   const [progress, setProgress] = useState<StudentNodeProgress | null>(null)
-  const [submissionText, setSubmissionText] = useState('')
-  const [submissionUrl, setSubmissionUrl] = useState('')
+  const [submissionText1, setSubmissionText1] = useState('')
+  const [submissionUrl1, setSubmissionUrl1] = useState('')
+  const [submissionText2, setSubmissionText2] = useState('')
+  const [submissionUrl2, setSubmissionUrl2] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [checkedItems, setCheckedItems] = useState<boolean[]>([])
 
@@ -26,8 +28,12 @@ export default function NodeDetailPage({ params }: { params: Promise<{ nodeId: s
     if (!appUser || !node) return
     getNodeProgress(appUser.id, node.id).then(p => {
       setProgress(p)
-      if (p?.submissionText) setSubmissionText(p.submissionText)
-      if (p?.submissionUrl) setSubmissionUrl(p.submissionUrl)
+      if (p) {
+        setSubmissionText1(p.submissionText1 || p.submissionText || '')
+        setSubmissionUrl1(p.submissionUrl1 || p.submissionUrl || '')
+        setSubmissionText2(p.submissionText2 || '')
+        setSubmissionUrl2(p.submissionUrl2 || '')
+      }
     })
     setCheckedItems(new Array(node.preClassBrief.length).fill(false))
   }, [appUser, node])
@@ -48,13 +54,20 @@ export default function NodeDetailPage({ params }: { params: Promise<{ nodeId: s
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!appUser) return
-    if (!submissionText.trim() && !submissionUrl.trim()) {
-      toast.error('Add a description or link before submitting')
+    if (!submissionText1.trim() && !submissionUrl1.trim() && !submissionText2.trim() && !submissionUrl2.trim()) {
+      toast.error('Add a description or link for at least one task before submitting')
       return
     }
     setSubmitting(true)
     try {
-      await submitNodeTask(appUser.id, node!.id, submissionText.trim(), submissionUrl.trim())
+      await submitNodeTask(
+        appUser.id,
+        node!.id,
+        submissionText1.trim(),
+        submissionUrl1.trim(),
+        submissionText2.trim(),
+        submissionUrl2.trim(),
+      )
       setProgress(prev => prev ? { ...prev, status: 'submitted' } : prev)
       toast.success('Submitted! Your teacher will review it soon 🎉')
     } catch {
@@ -63,6 +76,27 @@ export default function NodeDetailPage({ params }: { params: Promise<{ nodeId: s
       setSubmitting(false)
     }
   }
+
+  function formatTaskPrompt(text: string) {
+    return text
+      .trim()
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0)
+      .map((line, index) => (
+        <p key={index} className="text-sm leading-relaxed mb-2" style={{ color: 'var(--text-muted)' }}>
+          {line}
+        </p>
+      ))
+  }
+
+  const [task1Prompt, task2Prompt] = (() => {
+    const trimmed = node.taskDescription.trim()
+    const parts = trimmed.split(/Task 2\s*(?:\(Challenge\))?:/i)
+    const task1 = parts[0].replace(/Task 1:\s*/i, '').trim()
+    const task2 = parts[1] ? parts[1].trim() : ''
+    return [task1, task2]
+  })()
 
   const statusConfig: Record<string, { bg: string; text: string; label: string }> = {
     locked:         { bg: 'rgba(107,107,138,0.12)', text: '#4b5563', label: '🔒 Locked' },
@@ -99,7 +133,7 @@ export default function NodeDetailPage({ params }: { params: Promise<{ nodeId: s
             Node {node.order} · Level {level.order} — {level.title}
           </p>
         </div>
-        <div className="text-right flex-shrink-0 ml-4">
+        <div className="text-right shrink-0 ml-4">
           <p className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>On approval</p>
           <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl" style={{ background: 'rgba(217,119,6,0.12)', border: '1px solid rgba(217,119,6,0.2)' }}>
             <span className="text-amber-600 text-base">⚡</span>
@@ -128,7 +162,7 @@ export default function NodeDetailPage({ params }: { params: Promise<{ nodeId: s
                   updated[i] = !updated[i]
                   setCheckedItems(updated)
                 }}
-                className="mt-0.5 w-4 h-4 rounded flex-shrink-0 flex items-center justify-center transition border"
+                className="mt-0.5 w-4 h-4 rounded shrink-0 flex items-center justify-center transition border"
                 style={{
                   background: checkedItems[i] ? 'var(--accent)' : 'var(--surface-2)',
                   borderColor: checkedItems[i] ? 'var(--accent)' : 'var(--border-2)',
@@ -183,7 +217,7 @@ export default function NodeDetailPage({ params }: { params: Promise<{ nodeId: s
         </div>
         <h3 className="text-base font-bold mb-2" style={{ color: 'var(--text)' }}>{node.taskTitle}</h3>
         <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-          {node.taskDescription}
+          {task2Prompt ? 'Complete both Task 1 and Task 2 below.' : 'Complete the task below.'}
         </p>
 
         {/* Revision note */}
@@ -199,29 +233,69 @@ export default function NodeDetailPage({ params }: { params: Promise<{ nodeId: s
 
         {/* Submission form */}
         {!isApproved && status !== 'locked' && status !== 'submitted' && (
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <textarea
-              value={submissionText}
-              onChange={e => setSubmissionText(e.target.value)}
-              placeholder="Describe what you built — what it does, what you learned, any challenges you faced…"
-              rows={4}
-              className="w-full rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition resize-none"
-              style={{ background: 'var(--surface-2)', border: '1px solid var(--border-2)', color: 'var(--text)' }}
-            />
-            <input
-              type="url"
-              value={submissionUrl}
-              onChange={e => setSubmissionUrl(e.target.value)}
-              placeholder="Link to code, screenshot, or screen recording"
-              className="w-full rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              style={{ background: 'var(--surface-2)', border: '1px solid var(--border-2)', color: 'var(--text)' }}
-            />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="rounded-2xl p-4" style={{ background: 'var(--surface-2)', border: '1px solid var(--border-2)' }}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-base">1️⃣</span>
+                <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>Task 1</p>
+              </div>
+              <div className="rounded-2xl p-4 mb-4" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
+                {task1Prompt.length ? task1Prompt : (
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>Describe your Task 1 work, what you built, and what you learned…</p>
+                )}
+              </div>
+              <textarea
+                value={submissionText1}
+                onChange={e => setSubmissionText1(e.target.value)}
+                placeholder="Describe your Task 1 work, what you built, and what you learned…"
+                rows={4}
+                className="w-full rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition resize-none"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
+              />
+              <input
+                type="url"
+                value={submissionUrl1}
+                onChange={e => setSubmissionUrl1(e.target.value)}
+                placeholder="Link to Task 1 code, screenshot, or recording"
+                className="w-full rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition mt-3"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
+              />
+            </div>
+
+            <div className="rounded-2xl p-4" style={{ background: 'var(--surface-2)', border: '1px solid var(--border-2)' }}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-base">2️⃣</span>
+                <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>Task 2</p>
+              </div>
+              <div className="rounded-2xl p-4 mb-4" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
+                {task2Prompt.length ? task2Prompt : (
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>Describe your Task 2 work, challenge solution, or extension ideas…</p>
+                )}
+              </div>
+              <textarea
+                value={submissionText2}
+                onChange={e => setSubmissionText2(e.target.value)}
+                placeholder="Describe your Task 2 work, challenge solution, or extension ideas…"
+                rows={4}
+                className="w-full rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition resize-none"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
+              />
+              <input
+                type="url"
+                value={submissionUrl2}
+                onChange={e => setSubmissionUrl2(e.target.value)}
+                placeholder="Link to Task 2 code, screenshot, or recording"
+                className="w-full rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition mt-3"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text)' }}
+              />
+            </div>
+
             <button
               type="submit"
               disabled={submitting}
               className="w-full py-2.5 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition disabled:opacity-50 cursor-pointer"
             >
-              {submitting ? 'Submitting…' : '🚀 Submit task'}
+              {submitting ? 'Submitting…' : '🚀 Submit tasks'}
             </button>
           </form>
         )}

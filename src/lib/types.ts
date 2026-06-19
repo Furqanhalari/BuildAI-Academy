@@ -41,8 +41,12 @@ export interface StudentNodeProgress {
   studentId: string
   nodeId: string
   status: NodeStatus
-  submissionText: string
-  submissionUrl: string
+  submissionText?: string
+  submissionUrl?: string
+  submissionText1: string
+  submissionUrl1: string
+  submissionText2: string
+  submissionUrl2: string
   submittedAt: string | null
   approvedAt: string | null
   xpEarned: number

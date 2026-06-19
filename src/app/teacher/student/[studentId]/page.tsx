@@ -141,23 +141,56 @@ export default function StudentDetailPage({ params }: { params: Promise<{ studen
             <button onClick={() => setSelectedSub(null)} className="cursor-pointer" style={{ color: 'var(--text-muted)' }}>✕</button>
           </div>
 
-          {selectedSub.submissionText && (
-            <div className="p-3 rounded-xl text-sm" style={{ background: 'var(--surface-2)', color: 'var(--text)' }}>
-              <p className="text-xs font-bold mb-1.5" style={{ color: 'var(--text-muted)' }}>Description</p>
-              <p className="leading-relaxed">{selectedSub.submissionText}</p>
+          {(selectedSub.submissionText1 || selectedSub.submissionUrl1) && (
+            <div className="rounded-2xl p-4" style={{ background: 'var(--surface-2)', border: '1px solid var(--border-2)' }}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-base">1️⃣</span>
+                <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>Task 1 submission</p>
+              </div>
+              {selectedSub.submissionText1 && (
+                <div className="p-3 rounded-xl mb-3" style={{ background: 'var(--surface)', color: 'var(--text)' }}>
+                  <p className="text-xs font-bold mb-1.5" style={{ color: 'var(--text-muted)' }}>Description</p>
+                  <p className="leading-relaxed">{selectedSub.submissionText1}</p>
+                </div>
+              )}
+              {selectedSub.submissionUrl1 && (
+                <a
+                  href={selectedSub.submissionUrl1}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 p-3 rounded-xl text-sm font-semibold text-indigo-600 hover:text-indigo-500 transition"
+                  style={{ background: 'rgba(45,71,199,0.08)', border: '1px solid rgba(45,71,199,0.2)' }}
+                >
+                  🔗 View Task 1 link →
+                </a>
+              )}
             </div>
           )}
 
-          {selectedSub.submissionUrl && (
-            <a
-              href={selectedSub.submissionUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 p-3 rounded-xl text-sm font-semibold text-indigo-600 hover:text-indigo-500 transition"
-              style={{ background: 'rgba(45,71,199,0.08)', border: '1px solid rgba(45,71,199,0.2)' }}
-            >
-              🔗 View submission link →
-            </a>
+          {(selectedSub.submissionText2 || selectedSub.submissionUrl2) && (
+            <div className="rounded-2xl p-4" style={{ background: 'var(--surface-2)', border: '1px solid var(--border-2)' }}>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-base">2️⃣</span>
+                <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>Task 2 submission</p>
+              </div>
+              {selectedSub.submissionText2 && (
+                <div className="p-3 rounded-xl mb-3" style={{ background: 'var(--surface)', color: 'var(--text)' }}>
+                  <p className="text-xs font-bold mb-1.5" style={{ color: 'var(--text-muted)' }}>Description</p>
+                  <p className="leading-relaxed">{selectedSub.submissionText2}</p>
+                </div>
+              )}
+              {selectedSub.submissionUrl2 && (
+                <a
+                  href={selectedSub.submissionUrl2}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 p-3 rounded-xl text-sm font-semibold text-indigo-600 hover:text-indigo-500 transition"
+                  style={{ background: 'rgba(45,71,199,0.08)', border: '1px solid rgba(45,71,199,0.2)' }}
+                >
+                  🔗 View Task 2 link →
+                </a>
+              )}
+            </div>
           )}
 
           <div className="grid grid-cols-2 gap-3">

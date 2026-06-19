@@ -75,6 +75,10 @@ export async function setNodeProgress(
       status: 'locked',
       submissionText: '',
       submissionUrl: '',
+      submissionText1: '',
+      submissionUrl1: '',
+      submissionText2: '',
+      submissionUrl2: '',
       submittedAt: null,
       approvedAt: null,
       xpEarned: 0,
@@ -85,12 +89,19 @@ export async function setNodeProgress(
 }
 
 export async function submitNodeTask(
-  studentId: string, nodeId: string, submissionText: string, submissionUrl: string,
+  studentId: string,
+  nodeId: string,
+  submissionText1: string,
+  submissionUrl1: string,
+  submissionText2: string,
+  submissionUrl2: string,
 ): Promise<void> {
   await setNodeProgress(studentId, nodeId, {
     status: 'submitted',
-    submissionText,
-    submissionUrl,
+    submissionText1,
+    submissionUrl1,
+    submissionText2,
+    submissionUrl2,
     submittedAt: new Date().toISOString(),
   })
 }
