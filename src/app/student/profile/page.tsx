@@ -14,6 +14,8 @@ export default function ProfilePage() {
   const [optIn, setOptIn] = useState(false)
   const [saving, setSaving] = useState(false)
   const [changingPassword, setChangingPassword] = useState(false)
+  const [resetLink, setResetLink] = useState<string | null>(null)
+  const [showResetModal, setShowResetModal] = useState(false)
 
   useEffect(() => {
     if (!appUser) return
@@ -42,10 +44,25 @@ export default function ProfilePage() {
     if (!appUser) return
     setChangingPassword(true)
     try {
-      await resetPassword(appUser.email)
-      toast.success('Password reset email sent! Check your inbox.')
+      const res = await fetch('/api/admin/reset-link', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-secret': process.env.NEXT_PUBLIC_ADMIN_SECRET || '',
+        },
+        body: JSON.stringify({ studentEmail: appUser.email }),
+      })
+      
+      if (!res.ok) {
+        throw new Error('Failed to generate reset link')
+      }
+      
+      const data = await res.json()
+      setResetLink(data.resetLink)
+      setShowResetModal(true)
+      toast.success('Reset link generated!')
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unable to send reset email'
+      const message = error instanceof Error ? error.message : 'Unable to generate reset link'
       toast.error(message)
     } finally {
       setChangingPassword(false)
@@ -234,6 +251,49 @@ export default function ProfilePage() {
           })}
         </div>
       </div>
+
+      {/* ── Reset link modal ────────────────────────────────────────── */}
+      {showResetModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ background: 'rgba(0,0,0,0.5)' }}>
+          <div className="rounded-2xl p-6 max-w-md w-full card-shadow" style={{ background: 'var(--surface)' }}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold" style={{ color: 'var(--text)' }}>Password Reset Link</h2>
+              <button
+                onClick={() => setShowResetModal(false)}
+                className="text-2xl font-bold"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mb-4 p-3 rounded-lg" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
+              <p className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)' }}>Share this link with your teacher or admin:</p>
+              <p className="text-xs font-mono break-all" style={{ color: 'var(--text)' }}>
+                {resetLink}
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                if (resetLink) {
+                  navigator.clipboard.writeText(resetLink)
+                  toast.success('Link copied to clipboard!')
+                  setShowResetModal(false)
+                }
+              }}
+              className="w-full py-2 rounded-lg text-sm font-semibold transition"
+              style={{
+                background: 'linear-gradient(135deg, #2563eb, #8b5cf6)',
+                color: '#ffffff',
+                boxShadow: '0 8px 20px rgba(37,99,235,0.25)',
+              }}
+            >
+              Copy link
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
