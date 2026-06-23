@@ -8,11 +8,12 @@ import type { StudentBadge, StudentNodeProgress } from '@/lib/types'
 import toast from 'react-hot-toast'
 
 export default function ProfilePage() {
-  const { appUser, refreshUser } = useAuth()
+  const { appUser, refreshUser, resetPassword } = useAuth()
   const [studentBadges, setStudentBadges] = useState<StudentBadge[]>([])
   const [progress, setProgress] = useState<StudentNodeProgress[]>([])
   const [optIn, setOptIn] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [changingPassword, setChangingPassword] = useState(false)
 
   useEffect(() => {
     if (!appUser) return
@@ -35,6 +36,20 @@ export default function ProfilePage() {
     await refreshUser()
     toast.success(next ? "You're on the leaderboard!" : 'Removed from leaderboard')
     setSaving(false)
+  }
+
+  async function handleChangePassword() {
+    if (!appUser) return
+    setChangingPassword(true)
+    try {
+      await resetPassword(appUser.email)
+      toast.success('Password reset email sent! Check your inbox.')
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unable to send reset email'
+      toast.error(message)
+    } finally {
+      setChangingPassword(false)
+    }
   }
 
   const earnedBadgeIds = new Set(studentBadges.map(b => b.badgeId))
@@ -111,6 +126,28 @@ export default function ProfilePage() {
                 boxShadow: '0 0 8px rgba(96,165,250,0.5)',
               }}
             />
+          </div>
+        </div>
+
+        {/* ── Change password action ────────────────────────────────── */}
+        <div className="mt-6 rounded-2xl p-4 bg-white/10 border border-white/10 backdrop-blur-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <p className="text-sm font-bold text-white">Change password</p>
+              <p className="text-xs mt-1 text-white/70">Send a password reset link to your email anytime.</p>
+            </div>
+            <button
+              onClick={handleChangePassword}
+              disabled={changingPassword}
+              className="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold transition"
+              style={{
+                background: 'linear-gradient(135deg, #60a5fa, #8b5cf6)',
+                color: '#ffffff',
+                boxShadow: '0 12px 30px rgba(96,165,250,0.18)',
+              }}
+            >
+              {changingPassword ? 'Sending...' : 'Change password'}
+            </button>
           </div>
         </div>
       </div>

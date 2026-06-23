@@ -208,7 +208,9 @@ export default function TeacherDashboard() {
         {students.length === 0 ? (
           <div className="rounded-2xl p-10 text-center card-shadow" style={{ background: '#fff', border: '1px solid var(--border)' }}>
             <p className="text-4xl mb-3">👥</p>
-            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>No students enrolled yet. Share the signup link!</p>
+            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+              No students enrolled yet. Create accounts from the admin console and share access credentials securely.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">

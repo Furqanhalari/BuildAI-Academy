@@ -83,10 +83,7 @@ export default function LoginPage() {
         </form>
 
         <p className="text-center text-sm mt-4" style={{ color: 'var(--text-muted)' }}>
-          Don&apos;t have an account?{' '}
-          <Link href="/signup" className="text-indigo-400 hover:text-indigo-300 font-medium">
-            Sign up
-          </Link>
+          Accounts are created by your teacher or admin. Please contact them for access.
         </p>
       </div>
     </div>
