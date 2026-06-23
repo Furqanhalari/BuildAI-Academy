@@ -34,7 +34,7 @@ export default function NavBar() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 w-full h-14 md:bottom-auto md:top-0 md:h-full md:w-28 flex flex-row md:flex-col items-center py-2 px-4 md:py-5 md:px-3 z-50"
+      className="fixed bottom-0 left-0 w-full h-14 md:bottom-auto md:top-0 md:h-full md:w-16 flex flex-row md:flex-col items-center py-2 px-4 md:py-5 md:px-0 z-50"
       style={{
         background: 'linear-gradient(135deg, #1e3a8a 0%, #1e2d6b 100%)',
         boxShadow: '0 -3px 20px rgba(30,58,138,0.15), 3px 0 20px rgba(30,58,138,0.25)',
@@ -89,7 +89,7 @@ export default function NavBar() {
       <button
         onClick={handleLogOut}
         title="Log out"
-        className="flex items-center justify-center md:justify-start gap-3 px-3 py-2 rounded-full text-sm font-semibold transition cursor-pointer"
+        className="flex items-center justify-center md:justify-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold transition cursor-pointer"
         style={{ color: 'rgba(255,255,255,0.95)', background: 'rgba(255,255,255,0.08)' }}
         onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.16)')}
         onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}

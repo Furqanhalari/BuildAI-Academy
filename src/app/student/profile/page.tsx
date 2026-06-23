@@ -130,23 +130,23 @@ export default function ProfilePage() {
         </div>
 
         {/* ── Change password action ────────────────────────────────── */}
-        <div className="mt-6 rounded-2xl p-4 bg-white/10 border border-white/10 backdrop-blur-sm">
+        <div className="mt-6 rounded-2xl p-4 bg-slate-950/90 border border-slate-800 shadow-lg">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <p className="text-sm font-bold text-white">Change password</p>
-              <p className="text-xs mt-1 text-white/70">Send a password reset link to your email anytime.</p>
+              <p className="text-sm font-bold text-white">Password reset</p>
+              <p className="text-xs mt-1 text-slate-300">Send a password reset email to your account.</p>
             </div>
             <button
               onClick={handleChangePassword}
               disabled={changingPassword}
-              className="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold transition"
+              className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition"
               style={{
-                background: 'linear-gradient(135deg, #60a5fa, #8b5cf6)',
+                background: 'linear-gradient(135deg, #2563eb, #8b5cf6)',
                 color: '#ffffff',
-                boxShadow: '0 12px 30px rgba(96,165,250,0.18)',
+                boxShadow: '0 8px 20px rgba(37,99,235,0.25)',
               }}
             >
-              {changingPassword ? 'Sending...' : 'Change password'}
+              {changingPassword ? 'Sending...' : 'Reset password'}
             </button>
           </div>
         </div>
