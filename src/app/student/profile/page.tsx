@@ -52,13 +52,21 @@ export default function ProfilePage() {
         },
         body: JSON.stringify({ studentEmail: appUser.email }),
       })
-      
-      if (!res.ok) {
-        throw new Error('Failed to generate reset link')
+      // Safely handle empty/non-JSON responses
+      const text = await res.text()
+      let data: any = null
+      try {
+        data = text ? JSON.parse(text) : null
+      } catch (e) {
+        data = { error: text }
       }
-      
-      const data = await res.json()
-      setResetLink(data.resetLink)
+
+      if (!res.ok) {
+        const message = data?.error || `Request failed: ${res.status}`
+        throw new Error(message)
+      }
+
+      setResetLink(data?.resetLink ?? null)
       setShowResetModal(true)
       toast.success('Reset link generated!')
     } catch (error) {

@@ -10,6 +10,10 @@ const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin']
 export const metadata: Metadata = {
   title: 'BuildAI Academy',
   description: 'Learn AI by building it. The course that actually makes you do the work.',
+  icons: {
+    icon: '/BuildAI_Academy_Icon.png',
+    apple: '/BuildAI_Academy_Icon.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

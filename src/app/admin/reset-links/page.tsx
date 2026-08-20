@@ -38,13 +38,21 @@ export default function AdminResetLinks() {
         body: JSON.stringify({ studentEmail }),
       })
 
-      if (!res.ok) {
-        const error = await res.json()
-        throw new Error(error.error || 'Failed to generate reset link')
+      // Safely handle empty or non-JSON responses
+      const text = await res.text()
+      let data: any = null
+      try {
+        data = text ? JSON.parse(text) : null
+      } catch (e) {
+        data = { error: text }
       }
 
-      const data = await res.json()
-      setResetLink(data.resetLink)
+      if (!res.ok) {
+        const message = data?.error || `Request failed: ${res.status}`
+        throw new Error(message)
+      }
+
+      setResetLink(data?.resetLink ?? null)
       toast.success('Reset link generated!')
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Error generating reset link'

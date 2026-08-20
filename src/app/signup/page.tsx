@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function SignupPage() {
@@ -7,7 +8,13 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--background)' }}>
       <div className="w-full max-w-sm fade-in">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600 mb-4 text-2xl">🤖</div>
+          <Image
+            src="/BuildAI_Academy_Logo.png"
+            alt="BuildAI Academy"
+            width={280}
+            height={88}
+            className="mx-auto mb-4 h-16 w-auto object-contain"
+          />
           <h1 className="text-2xl font-bold" style={{ color: 'var(--text)' }}>Sign up is disabled</h1>
           <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
             New accounts are created by your teacher or admin only. Please contact them to get access.

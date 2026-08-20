@@ -68,10 +68,10 @@ export default function TeacherDashboard() {
   }
 
   const stats = [
-    { label: 'Total Students',   value: students.length,                                                   icon: '👥', cardClass: 'stat-indigo', textColor: '#1e3a8a' },
+    { label: 'Total Students',   value: students.length,                                                   icon: '👥', cardClass: 'stat-indigo', textColor: '#0B1739' },
     { label: 'Pending Review',   value: pendingSubmissions.length,                                         icon: '📬', cardClass: 'stat-amber',  textColor: '#92400e' },
-    { label: 'Live Now',         value: sessions.filter(s => s.isLive).length,                             icon: '🔴', cardClass: 'stat-rose',   textColor: '#9f1239' },
-    { label: 'Upcoming Classes', value: sessions.filter(s => !s.isLive && new Date(s.scheduledAt) > new Date()).length, icon: '📅', cardClass: 'stat-cyan', textColor: '#164e63' },
+    { label: 'Live Now',         value: sessions.filter(s => s.isLive).length,                             icon: '🔴', cardClass: 'stat-amber',  textColor: '#92400e' },
+    { label: 'Upcoming Classes', value: sessions.filter(s => !s.isLive && new Date(s.scheduledAt) > new Date()).length, icon: '📅', cardClass: 'stat-indigo', textColor: '#0B1739' },
   ]
 
   return (

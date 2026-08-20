@@ -55,10 +55,10 @@ export default function AnalyticsPage() {
   }
 
   const overviewStats = [
-    { label: 'Total students',  value: totalStudents,       icon: '👥', cardClass: 'stat-indigo',  textColor: '#1e3a8a' },
-    { label: 'Avg XP',         value: avgXp,               icon: '⚡', cardClass: 'stat-amber',   textColor: '#b45309' },
-    { label: 'Avg streak',     value: `${avgStreak}d`,     icon: '🔥', cardClass: 'stat-rose',    textColor: '#b91c1c' },
-    { label: 'Completion',     value: `${completionRate}%`,icon: '✅', cardClass: 'stat-emerald', textColor: '#047857' },
+    { label: 'Total students',  value: totalStudents,       icon: '👥', cardClass: 'stat-indigo', textColor: '#0B1739' },
+    { label: 'Avg XP',         value: avgXp,               icon: '⚡', cardClass: 'stat-indigo', textColor: '#0B1739' },
+    { label: 'Avg streak',     value: `${avgStreak}d`,     icon: '🔥', cardClass: 'stat-indigo', textColor: '#0B1739' },
+    { label: 'Completion',     value: `${completionRate}%`,icon: '✅', cardClass: 'stat-indigo', textColor: '#0B1739' },
   ]
 
   return (

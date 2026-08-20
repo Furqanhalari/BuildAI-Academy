@@ -8,14 +8,14 @@
   --surface-3:   #eaedfa;       /* slightly deeper hover */
   --border:      #dde3f5;       /* soft blue-grey border */
   --border-2:    #c7d0ec;       /* stronger border */
-  --text:        #1a2155;       /* deep navy text */
+  --text:        #0B1739;       /* logo wordmark navy */
   --text-muted:  #6b78b0;       /* medium-navy muted text */
-  --accent:      #2d47c7;       /* primary navy-blue */
-  --accent-glow: rgba(45, 71, 199, 0.18);
+  --accent:      #2F5FFF;       /* logo primary blue */
+  --accent-glow: rgba(47, 95, 255, 0.18);
 
   /* Vivid palette */
-  --navy:    #1e3a8a;
-  --indigo:  #3b5bdb;
+  --navy:    #0B1739;
+  --indigo:  #2F5FFF;
   --violet:  #7c3aed;
   --cyan:    #0891b2;
   --emerald: #059669;
@@ -24,7 +24,7 @@
   --sky:     #0284c7;
 
   /* Navy gradient used on hero headers / nav */
-  --navy-grad: linear-gradient(135deg, #1e3a8a 0%, #2d47c7 60%, #3b5bdb 100%);
+  --navy-grad: linear-gradient(135deg, #0B1739 0%, #2F5FFF 60%, #2F5FFF 100%);
 }
 
 * { box-sizing: border-box; }
@@ -47,7 +47,7 @@ body {
 
 /* ── Gradient text ───────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #2d47c7 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #2F5FFF 0%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -75,12 +75,12 @@ body {
 
 /* ── Stat card gradients (colored tinted backgrounds) ────── */
 .stat-indigo {
-  background: linear-gradient(135deg, #eff2ff 0%, #e8edff 100%);
-  border-color: #c5d0ff !important;
+  background: linear-gradient(135deg, #eef3ff 0%, #e3ebff 100%);
+  border-color: rgba(47, 95, 255, 0.28) !important;
 }
 .stat-amber {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-  border-color: #fcd34d !important;
+  background: linear-gradient(135deg, #fffbeb 0%, #fde68a 100%);
+  border-color: #f59e0b !important;
 }
 .stat-emerald {
   background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
@@ -104,13 +104,13 @@ body {
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 }
 .card-hover:hover {
-  border-color: #3b5bdb !important;
-  box-shadow: 0 6px 24px rgba(45,71,199,0.14);
+  border-color: #2F5FFF !important;
+  box-shadow: 0 6px 24px rgba(47,95,255,0.14);
   transform: translateY(-2px);
 }
 
 /* ── Glow effects ────────────────────────────────────────── */
-.glow-indigo  { box-shadow: 0 0 24px rgba(45,71,199,0.2); }
+.glow-indigo  { box-shadow: 0 0 24px rgba(47,95,255,0.2); }
 .glow-emerald { box-shadow: 0 0 24px rgba(5,150,105,0.2); }
 .glow-amber   { box-shadow: 0 0 24px rgba(217,119,6,0.2); }
 .glow-rose    { box-shadow: 0 0 24px rgba(225,29,72,0.2); }
@@ -172,7 +172,7 @@ body {
   top: 0; left: 0; right: 0;
   height: 3px;
   border-radius: 99px 99px 0 0;
-  background: linear-gradient(90deg, #1e3a8a, #3b5bdb, #7c3aed);
+  background: linear-gradient(90deg, #0B1739, #2F5FFF, #7c3aed);
 }
 
 /* ── Badge pill ──────────────────────────────────────────── */

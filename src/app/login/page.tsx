@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useAuth } from '@/contexts/AuthContext'
@@ -31,11 +32,15 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--background)' }}>
       <div className="w-full max-w-sm fade-in">
         {/* Logo */}
-          <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600 mb-4 text-2xl">
-            🤖
-          </div>
-          <h1 className="text-2xl font-bold" style={{ color: 'var(--text)' }}>BuildAI Academy</h1>
+        <div className="text-center mb-8">
+          <Image
+            src="/BuildAI_Academy_Logo.png"
+            alt="BuildAI Academy"
+            width={280}
+            height={88}
+            priority
+            className="mx-auto mb-4 h-16 w-auto object-contain"
+          />
           <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>Sign in to your account</p>
         </div>
 
