@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { Calendar } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import {
   getLiveSessions, createLiveSession, goLive, endLiveSession,
@@ -169,7 +170,8 @@ export default function SchedulePage() {
           UPCOMING ({upcoming.length})
         </p>
         {upcoming.length === 0 ? (
-          <div className="rounded-2xl p-6 text-center card-shadow" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
+          <div className="rounded-2xl p-6 text-center card-shadow flex items-center justify-center gap-2" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
+            <Calendar size={16} className="shrink-0" style={{ color: 'var(--text-muted)' }} aria-hidden="true" />
             <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>No upcoming sessions. Schedule one above.</p>
           </div>
         ) : (

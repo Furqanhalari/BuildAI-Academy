@@ -28,9 +28,9 @@ export default function LeaderboardPage() {
 
   const medals = ['🥇', '🥈', '🥉']
   const podiumColors = [
-    { bg: '#fef3c7', border: '#f59e0b', text: '#b45309', avatarBg: 'linear-gradient(135deg, #fbbf24, #f59e0b)' }, // Gold
-    { bg: '#f8fafc', border: '#cbd5e1', text: '#475569', avatarBg: 'linear-gradient(135deg, #94a3b8, #64748b)' }, // Silver
-    { bg: '#fff7ed', border: '#fdba74', text: '#c2410c', avatarBg: 'linear-gradient(135deg, #f97316, #ea580c)' }, // Bronze
+    { bg: '#fef3c7', border: '#f59e0b', text: '#b45309', avatarBg: 'linear-gradient(135deg, #fbbf24, #d97706)' }, // #1 Gold
+    { bg: '#f1f5f9', border: '#94a3b8', text: '#334155', avatarBg: 'linear-gradient(135deg, #cbd5e1, #64748b)' }, // #2 Silver
+    { bg: '#ffedd5', border: '#fdba74', text: '#c2410c', avatarBg: 'linear-gradient(135deg, #f97316, #ea580c)' }, // #3 Bronze
   ]
 
   return (
@@ -88,7 +88,7 @@ export default function LeaderboardPage() {
         <div className="space-y-2">
           {entries.map((user, i) => {
             const isMe = user.id === appUser?.id
-            const podium = podiumColors[i]
+            const podium = podiumColors[i] // undefined for rank 4+ (i >= 3)
 
             return (
               <div
@@ -106,10 +106,10 @@ export default function LeaderboardPage() {
                     : 'none',
                 }}
               >
-                {/* Rank */}
+                {/* Rank Position — Gold for #1, Silver for #2, Bronze for #3, plain #N for #4+ */}
                 <div className="w-8 text-center flex-shrink-0">
                   {i < 3 ? (
-                    <span className="text-2xl">{medals[i]}</span>
+                    <span className="text-2xl" title={`Rank ${i + 1}`}>{medals[i]}</span>
                   ) : (
                     <span className="text-sm font-bold" style={{ color: 'var(--text-muted)' }}>#{i + 1}</span>
                   )}

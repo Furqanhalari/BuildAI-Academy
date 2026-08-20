@@ -224,33 +224,45 @@ export default function ProfilePage() {
             return (
               <div
                 key={badge.id}
-                className="rounded-2xl p-4 flex items-center gap-3 transition card-shadow"
+                className="rounded-2xl p-4 flex items-center gap-3 transition card-shadow relative overflow-hidden"
                 style={{
                   background: earned ? 'var(--surface)' : 'var(--surface-2)',
-                  border: `1px solid ${earned ? 'rgba(45, 71, 199, 0.2)' : 'var(--border)'}`,
-                  opacity: earned ? 1 : 0.5,
+                  border: `1px solid ${earned ? 'rgba(45, 71, 199, 0.25)' : 'var(--border)'}`,
+                  opacity: earned ? 1 : 0.65,
+                  filter: earned ? 'none' : 'grayscale(0.85)',
                 }}
               >
                 <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+                  className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 relative"
                   style={{
                     background: earned
                       ? 'linear-gradient(135deg, rgba(45, 71, 199, 0.12), rgba(124, 58, 237, 0.08))'
-                      : 'var(--border)',
+                      : '#cbd5e1',
                   }}
                 >
-                  {badge.icon}
+                  <span style={{ filter: earned ? 'none' : 'grayscale(1)' }}>{badge.icon}</span>
                 </div>
-                <div>
-                  <p className="text-sm font-bold" style={{ color: earned ? 'var(--text)' : '#9ca3af' }}>
-                    {badge.title}
-                  </p>
-                  <p className="text-xs font-semibold" style={{ color: 'var(--text-muted)' }}>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <p className="text-sm font-bold truncate" style={{ color: earned ? 'var(--text)' : '#64748b' }}>
+                      {badge.title}
+                    </p>
+                    {!earned && (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-md font-bold bg-slate-200 text-slate-600 shrink-0">
+                        🔒 Locked
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs font-semibold leading-snug" style={{ color: earned ? 'var(--text-muted)' : '#94a3b8' }}>
                     {badge.description}
                   </p>
-                  {earnedAt && (
-                    <p className="text-[10px] mt-0.5 font-bold" style={{ color: 'var(--accent)' }}>
+                  {earnedAt ? (
+                    <p className="text-[10px] mt-1 font-bold" style={{ color: 'var(--accent)' }}>
                       Earned {new Date(earnedAt.earnedAt).toLocaleDateString()}
+                    </p>
+                  ) : (
+                    <p className="text-[10px] mt-1 font-semibold text-slate-400">
+                      Not earned yet
                     </p>
                   )}
                 </div>

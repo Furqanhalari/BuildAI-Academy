@@ -97,7 +97,12 @@ export default function AnalyticsPage() {
                 <div className="flex-1 h-5 rounded-lg overflow-hidden" style={{ background: 'var(--surface-2)' }}>
                   <div
                     className="h-full rounded-lg transition-all flex items-center px-2"
-                    style={{ width: `${pct}%`, background: pct === 0 ? 'transparent' : 'rgba(45, 71, 199, 0.4)', minWidth: pct > 0 ? 24 : 0 }}
+                    style={{
+                      width: `${pct}%`,
+                      background: pct === 0 ? 'transparent' : 'linear-gradient(90deg, #2F5FFF 0%, #3b5bdb 100%)',
+                      boxShadow: pct > 0 ? '0 2px 8px rgba(47, 95, 255, 0.25)' : 'none',
+                      minWidth: pct > 0 ? 24 : 0,
+                    }}
                   >
                     {pct > 15 && <span className="text-[10px] text-white font-bold">{pct}%</span>}
                   </div>

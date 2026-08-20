@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Calendar } from 'lucide-react'
 import type { LiveSession } from '@/lib/types'
 
 interface Props { session: LiveSession | null }
@@ -42,7 +43,10 @@ export default function LiveClassCard({ session }: Props) {
         <p className="text-xs tracking-widest font-bold mb-3" style={{ color: 'var(--text-muted)' }}>
           NEXT LIVE CLASS
         </p>
-        <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>No upcoming sessions scheduled yet.</p>
+        <div className="flex items-center gap-2">
+          <Calendar size={16} className="shrink-0" style={{ color: 'var(--text-muted)' }} aria-hidden="true" />
+          <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>No upcoming sessions scheduled yet.</p>
+        </div>
       </div>
     )
   }
