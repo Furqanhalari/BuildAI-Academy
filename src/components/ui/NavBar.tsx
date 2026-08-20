@@ -71,21 +71,20 @@ export default function NavBar() {
       {/* Logo */}
       <Link
         href="/"
-        className="hidden md:flex mb-8 w-10 h-10 rounded-xl items-center justify-center text-xl transition hover:scale-110"
+        className="hidden md:flex mb-8 w-11 h-11 rounded-xl items-center justify-center transition hover:scale-110"
         title="BuildAI Academy"
         style={{
-          background: 'rgba(255,255,255,0.15)',
-          backdropFilter: 'blur(4px)',
-          border: '1px solid rgba(255,255,255,0.2)',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+          background: '#ffffff',
+          border: '2px solid rgba(47,95,255,0.5)',
+          boxShadow: '0 0 0 3px rgba(47,95,255,0.18), 0 4px 16px rgba(0,0,0,0.22)',
         }}
       >
         <Image
           src="/BuildAI_Academy_Icon.png"
           alt="BuildAI Academy"
-          width={28}
-          height={28}
-          className="w-7 h-7 object-contain"
+          width={30}
+          height={30}
+          className="w-8 h-8 object-contain"
         />
       </Link>
 

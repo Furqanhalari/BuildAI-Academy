@@ -29,19 +29,47 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--background)' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center px-4" style={{ background: 'var(--background)' }}>
       <div className="w-full max-w-sm fade-in">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Image
-            src="/BuildAI_Academy_Logo.png"
-            alt="BuildAI Academy"
-            width={280}
-            height={88}
-            priority
-            className="mx-auto mb-4 h-16 w-auto object-contain"
-          />
-          <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>Sign in to your account</p>
+        {/* Logo Hero */}
+        <div className="text-center mb-10">
+          {/* Glowing logo ring */}
+          <div className="relative inline-block mb-5">
+            <div
+              className="absolute inset-0 rounded-3xl"
+              style={{
+                background: 'linear-gradient(135deg, #2F5FFF 0%, #7c3aed 100%)',
+                filter: 'blur(28px)',
+                opacity: 0.35,
+                transform: 'scale(1.2)',
+              }}
+            />
+            <div
+              className="relative rounded-3xl p-3"
+              style={{
+                background: 'linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%)',
+                boxShadow: '0 8px 40px rgba(47,95,255,0.28), 0 2px 8px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)',
+                border: '1.5px solid rgba(47,95,255,0.18)',
+              }}
+            >
+              <Image
+                src="/BuildAI_Academy_Logo.png"
+                alt="BuildAI Academy"
+                width={340}
+                height={108}
+                priority
+                className="h-24 w-auto object-contain block"
+              />
+            </div>
+          </div>
+
+          {/* Tagline */}
+          <p
+            className="text-base font-semibold tracking-wide"
+            style={{ color: 'var(--text-muted)' }}
+          >
+            Sign in to your account
+          </p>
         </div>
 
         {/* Form */}
